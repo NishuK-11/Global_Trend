@@ -1,4 +1,4 @@
-// ----- TIMEOUT WRAPPER -----
+
 function fetchWithTimeout(url, options = {}, timeout = 7000) {
     return Promise.race([
         fetch(url, options),
@@ -7,8 +7,6 @@ function fetchWithTimeout(url, options = {}, timeout = 7000) {
         )
     ]);
 }
-
-// ----- GLOBAL ERROR RENDER -----
 function showError(message) {
     const container = document.getElementById("repoContainer");
     container.innerHTML = `
@@ -23,8 +21,6 @@ function showError(message) {
         </div>
     `;
 }
-
-// ----- SAFE JSON PARSE -----
 async function safeJSON(res) {
     try {
         return await res.json();
@@ -32,8 +28,6 @@ async function safeJSON(res) {
         throw new Error("Invalid JSON Response From Server");
     }
 }
-
-// ----- FETCH ALL REPOS -----
 async function fetchRepos(url = "http://localhost:5000/api/repos") {
     try {
         const res = await fetchWithTimeout(url);
@@ -58,7 +52,6 @@ async function fetchRepos(url = "http://localhost:5000/api/repos") {
     }
 }
 
-// ----- RENDER LANGUAGES -----
 function renderLanguages(repos) {
     try {
         const languages = [...new Set(repos.map(r => r.language).filter(Boolean))];
@@ -73,8 +66,6 @@ function renderLanguages(repos) {
         showError("Language filter render failed: " + err.message);
     }
 }
-
-// ----- RENDER REPO CARDS -----
 function renderRepos(repos) {
     const container = document.getElementById("repoContainer");
     container.innerHTML = "";
@@ -87,7 +78,7 @@ function renderRepos(repos) {
     repos.forEach(repo => {
         const { name, language, stars } = repo;
 
-        if (!name) return; // malformed skip
+        if (!name) return; 
 
         const card = document.createElement("div");
         card.className = "repo-card";
@@ -107,7 +98,6 @@ function renderRepos(repos) {
     attachCommitListeners();
 }
 
-// ----- COMMIT BUTTON EVENT -----
 function attachCommitListeners() {
     document.querySelectorAll(".repo-card button").forEach(btn => {
         btn.addEventListener("click", async () => {
@@ -141,7 +131,6 @@ function attachCommitListeners() {
     });
 }
 
-// ----- FILTER LOGIC -----
 document.getElementById("applyFilters").addEventListener("click", async () => {
     try {
         let url = "http://localhost:5000/api/repos?";
@@ -160,8 +149,6 @@ document.getElementById("applyFilters").addEventListener("click", async () => {
         showError("Filter failed: " + err.message);
     }
 });
-
-// ----- INITIAL LOAD -----
 (async function () {
     const repos = await fetchRepos();
     renderLanguages(repos);
