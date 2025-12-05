@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GitHub Repo Dashboard</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: #f5f5f5;
+            height: 100vh;
+            padding: 20px;
+            border-right: 1px solid #ddd;
+        }
+
+        .sidebar h3 {
+            margin-top: 0;
+        }
+
+        .filter-group {
+            margin-bottom: 20px;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .filter-group select {
+            width: 100%;
+            padding: 8px;
+        }
+
+        .filter-group button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background: black;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        .content {
+            flex: 1;
+            padding: 20px;
+            background: #fff;
+        }
+
+        .repo-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .repo-card button {
+            padding: 6px 12px;
+            margin-top: 5px;
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LEFT SIDEBAR FILTERS -->
+    <div class="sidebar">
+        <h3>Filters</h3>
+
+        <div class="filter-group">
+            <label>Language</label>
+            <select id="language"></select>
+        </div>
+
+        <div class="filter-group">
+            <label>Sort by Stars</label>
+            <select id="sort">
+                <option value="">None</option>
+                <option value="stars">Stars (High → Low)</option>
+            </select>
+        </div>
+
+        <button id="applyFilters">Apply Filters</button>
+    </div>
+
+    <!-- MAIN CONTENT REPO LIST -->
+    <div class="content">
+        <h1>GitHub Repositories</h1>
+        <div id="repoContainer"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
